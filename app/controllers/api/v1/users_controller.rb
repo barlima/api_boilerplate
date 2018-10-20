@@ -22,7 +22,9 @@ module Api
       def create
         user = User.new(user_params)
         if user.save
-          render json: {status: 200, msg: 'User was created.'}
+          render json: {status: 200, msg: 'User was created.', errors: user.errors.messages}
+        else
+          render json: {status: 409, msg: user.errors.full_messages}
         end
       end
 
